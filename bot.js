@@ -45,4 +45,4 @@ const formatTime = (date) => {
     return time;
 }
 
-setInterval(oncePerDay, 900000);
+setInterval(oncePerDay, 900001);
