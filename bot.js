@@ -1,32 +1,37 @@
 const config = require('./config');
 const twit = require('twit');
+const axios = require('axios');
 
 const Tweet = new twit(config)
 
 let today = new Date().setHours(0,0,0,0);
-console.log(today)
 const hasOneDayPassed = () => {
     let dateCheck = new Date().setHours(0,0,0,0)
-    console.log(dateCheck)
     if (today == dateCheck) {
         return false
     }
-
     today = dateCheck;
     return true;
 }
- let value = !hasOneDayPassed()
 
 const oncePerDay = () => {
     console.log(formatTime(new Date))
     if (!hasOneDayPassed()) {
         return false
     }
-    console.log('ha ha')
 
-    // Tweet.post('statuses/update', {status: '@jamesjholee hello world!'}, (err, data, response) => {
-    //     console.log(data)
-    // })
+    if (formatTime(new Date) == '12:47 pm') {
+        axios.get('https://api.kanye.rest/?format=text')
+          .then(response => {
+              Tweet.post('statuses/update', {status: `ye once said '${response.data}' but  @stephenasmith I NEED TO KNOW is Russell Westbrook is a TOP5 PG in the league?` }, (err, data, response) => {
+                  console.log(data)
+              })
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+    }
 }
 
 const formatTime = (date) => {
@@ -40,6 +45,4 @@ const formatTime = (date) => {
     return time;
 }
 
-console.log(formatTime(new Date))
-
-setInterval(oncePerDay, 3000);
+setInterval(oncePerDay, 10000);
