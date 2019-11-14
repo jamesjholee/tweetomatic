@@ -24,7 +24,7 @@ const oncePerDay = () => {
         axios.get('https://api.kanye.rest/?format=text')
           .then(response => {
               Tweet.post('statuses/update', {status: `ye once said '${response.data}' but  @stephenasmith I NEED TO KNOW is Russell Westbrook is a TOP5 PG in the league?` }, (err, data, response) => {
-                  console.log(data)
+                  console.log('success')
               })
             console.log(response.data);
           })
